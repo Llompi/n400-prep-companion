@@ -1,0 +1,51 @@
+# .clauignore - Control what Claude Code sees
+
+# Dependencies and build artifacts
+node_modules/
+dist/
+build/
+.vite/
+*.log
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test coverage and reports
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# Git files
+.git/
+.gitignore
+
+# CI/CD
+.github/workflows/
+
+# Documentation that's not core to development
+LICENSE
+CONTRIBUTING.md
+
+# Large static data files (if any)
+# Uncomment if you have large JSON/CSV files
+# src/data/*.json
+
+# Build caches
+.cache/
+.parcel-cache/
+.eslintcache

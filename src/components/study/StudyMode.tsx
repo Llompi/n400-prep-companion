@@ -74,7 +74,7 @@ export function StudyMode({
 
   if (!currentQ) {
     return (
-      <div className="p-10 text-center font-serif text-slate-500">
+      <div className="p-10 text-center font-serif text-slate-500 dark:text-slate-400">
         No questions available. {showMastered ? '' : 'All questions mastered!'}
       </div>
     );
@@ -83,16 +83,16 @@ export function StudyMode({
   return (
     <div className="relative min-h-[600px] flex flex-col">
       {/* Physics Background */}
-      <div className="absolute inset-0 overflow-hidden rounded-3xl opacity-50 z-0">
+      <div className="absolute inset-0 overflow-hidden rounded-3xl opacity-50 dark:opacity-30 z-0">
         <ParticleBackground />
       </div>
 
       <div className="relative z-10 max-w-lg mx-auto w-full space-y-6 pt-6">
         {/* Header */}
-        <div className="flex justify-between items-center bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-sm">
-          <h2 className="text-lg font-serif pl-4 text-slate-700">Flashcards</h2>
+        <div className="flex justify-between items-center bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm p-3 rounded-full shadow-sm border border-slate-100 dark:border-slate-700">
+          <h2 className="text-lg font-serif pl-4 text-slate-700 dark:text-slate-200">Flashcards</h2>
           <div className="flex items-center gap-3 pr-2">
-            <label className="text-xs text-slate-500 font-bold flex items-center gap-2 cursor-pointer bg-slate-100 px-3 py-1.5 rounded-full hover:bg-slate-200 transition">
+            <label className="text-xs text-slate-600 dark:text-slate-300 font-bold flex items-center gap-2 cursor-pointer bg-slate-100 dark:bg-slate-700 px-3 py-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 transition">
               <input
                 type="checkbox"
                 checked={!showMastered}
@@ -100,7 +100,7 @@ export function StudyMode({
                   setShowMastered(!showMastered);
                   setCurrentIndex(0);
                 }}
-                className="accent-slate-800"
+                className="accent-blue-600"
               />
               Study Needs
             </label>
@@ -108,11 +108,11 @@ export function StudyMode({
               <button
                 onClick={handleExport}
                 title="Export Questions"
-                className="p-2 text-slate-400 hover:text-blue-500"
+                className="p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400"
               >
                 <Icon name="download" size={16} />
               </button>
-              <label className="p-2 text-slate-400 hover:text-blue-500 cursor-pointer">
+              <label className="p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer">
                 <Icon name="upload" size={16} />
                 <input
                   type="file"
@@ -140,26 +140,26 @@ export function StudyMode({
           >
             {/* FRONT */}
             <div
-              className="absolute w-full h-full bg-white rounded-2xl shadow-xl border-2 border-white flex flex-col items-center justify-center p-8 text-center"
+              className="absolute w-full h-full bg-white dark:bg-slate-800 rounded-2xl shadow-xl border-2 border-white dark:border-slate-700 flex flex-col items-center justify-center p-8 text-center"
               style={{ backfaceVisibility: 'hidden' }}
             >
-              <div className="absolute top-6 left-6 text-xs font-bold text-slate-300 uppercase tracking-widest">
+              <div className="absolute top-6 left-6 text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                 {currentQ.section}
               </div>
-              <div className="absolute top-6 right-6 text-2xl font-serif text-slate-100 font-bold">
+              <div className="absolute top-6 right-6 text-2xl font-serif text-slate-200 dark:text-slate-600 font-bold">
                 Q{currentQ.id}
               </div>
-              <h3 className="text-2xl font-serif text-slate-800 leading-snug">
+              <h3 className="text-2xl font-serif text-slate-800 dark:text-slate-100 leading-snug">
                 {currentQ.q}
               </h3>
-              <div className="absolute bottom-6 text-xs font-bold text-blue-300 uppercase tracking-widest animate-pulse">
+              <div className="absolute bottom-6 text-xs font-bold text-blue-400 dark:text-blue-400 uppercase tracking-widest animate-pulse">
                 Tap to Reveal
               </div>
             </div>
 
             {/* BACK */}
             <div
-              className="absolute w-full h-full bg-slate-800 rounded-2xl shadow-xl flex flex-col items-center justify-center p-8 text-center border-2 border-slate-700"
+              className="absolute w-full h-full bg-slate-800 dark:bg-slate-700 rounded-2xl shadow-xl flex flex-col items-center justify-center p-8 text-center border-2 border-slate-700 dark:border-slate-600"
               style={{
                 backfaceVisibility: 'hidden',
                 transform: 'rotateY(180deg)',
@@ -179,7 +179,7 @@ export function StudyMode({
         <div className="flex items-center justify-between px-4">
           <button
             onClick={prevCard}
-            className="p-4 bg-white rounded-full shadow-sm hover:shadow-md text-slate-400 hover:text-slate-600 transition"
+            className="p-4 bg-white dark:bg-slate-800 rounded-full shadow-sm hover:shadow-md dark:shadow-slate-900/50 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition border border-slate-100 dark:border-slate-700"
             aria-label="Previous question"
           >
             <Icon name="arrow-left" />
@@ -192,8 +192,8 @@ export function StudyMode({
             }}
             className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm shadow-sm transition transform active:scale-95 ${
               mastery[currentQ.id]
-                ? 'bg-green-100 text-green-700 ring-2 ring-green-200'
-                : 'bg-white text-slate-500 hover:bg-slate-50'
+                ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 ring-2 ring-green-200 dark:ring-green-700'
+                : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-100 dark:border-slate-700'
             }`}
           >
             {mastery[currentQ.id] ? (
@@ -209,7 +209,7 @@ export function StudyMode({
 
           <button
             onClick={nextCard}
-            className="p-4 bg-white rounded-full shadow-sm hover:shadow-md text-slate-400 hover:text-slate-600 transition"
+            className="p-4 bg-white dark:bg-slate-800 rounded-full shadow-sm hover:shadow-md dark:shadow-slate-900/50 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition border border-slate-100 dark:border-slate-700"
             aria-label="Next question"
           >
             <Icon name="arrow-right" />
@@ -217,12 +217,12 @@ export function StudyMode({
         </div>
 
         {/* Progress indicator */}
-        <div className="text-center text-xs text-slate-400">
+        <div className="text-center text-xs text-slate-500 dark:text-slate-400">
           {currentIndex + 1} of {activeQuestions.length}
         </div>
 
         {/* Card-Specific Note */}
-        <div className="bg-white/50 backdrop-blur-sm p-4 rounded-xl border border-white/50 shadow-sm">
+        <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
           <IntegratedNote
             id={`q_${currentQ.id}`}
             notes={notes}

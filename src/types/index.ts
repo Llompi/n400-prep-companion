@@ -36,6 +36,8 @@ export interface Document {
   required: boolean;
   notes?: string;
   meta: DocumentMeta;
+  parentId?: string; // For sub-documents/grouping
+  isCustom?: boolean; // User-added documents
 }
 
 // User Settings
@@ -45,6 +47,7 @@ export interface UserSettings {
   greenCardDate?: string;
   filingDate?: string;
   interviewDate?: string;
+  darkMode?: boolean;
 }
 
 // Notes store - keyed by entity ID
@@ -98,4 +101,7 @@ export type IconName =
   | 'message-square'
   | 'chevron-down'
   | 'chevron-up'
-  | 'more-horizontal';
+  | 'more-horizontal'
+  | 'moon'
+  | 'sun'
+  | 'folder-plus';

@@ -12,6 +12,7 @@ import {
   Plus,
   Trash2,
   Folder,
+  FolderPlus,
   Link as LinkIcon,
   AlertTriangle,
   Paperclip,
@@ -28,6 +29,8 @@ import {
   ChevronDown,
   ChevronUp,
   MoreHorizontal,
+  Moon,
+  Sun,
   type LucideIcon,
 } from 'lucide-react';
 import type { IconName } from '../../types';
@@ -62,6 +65,9 @@ const ICON_MAP: Record<IconName, LucideIcon> = {
   'chevron-down': ChevronDown,
   'chevron-up': ChevronUp,
   'more-horizontal': MoreHorizontal,
+  'moon': Moon,
+  'sun': Sun,
+  'folder-plus': FolderPlus,
 };
 
 interface IconProps {

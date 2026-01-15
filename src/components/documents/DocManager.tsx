@@ -208,48 +208,47 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                 {/* Expanded Details */}
                 {isExp && (
                   <div className="mt-2 ml-9 mr-2 animate-fade-in">
-                    <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5 space-y-4 border border-slate-100 dark:border-slate-700">
-                      {/* Meta Fields */}
-                      <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 space-y-3 border border-slate-100 dark:border-slate-700">
+                      {/* Meta Fields - Stack on mobile */}
+                      <div className="space-y-3">
                         <div>
-                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">
+                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1">
                             Expiration
                           </label>
                           <input
                             type="date"
-                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                             value={doc.meta?.expiry || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'expiry', e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">
+                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1">
                             Issuer
                           </label>
                           <input
                             type="text"
                             placeholder="e.g. DMV, IRS"
-                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 placeholder:text-slate-300 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
                             value={doc.meta?.issuer || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'issuer', e.target.value)}
                           />
                         </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1.5">
-                          Location
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="Where is this document stored?"
-                          className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-200 placeholder:text-slate-300 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-                          value={doc.meta?.location || ''}
-                          onClick={(e) => e.stopPropagation()}
-                          onChange={(e) => updateMeta(doc, 'location', e.target.value)}
-                        />
+                        <div>
+                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1">
+                            Location
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="Where is this document stored?"
+                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                            value={doc.meta?.location || ''}
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) => updateMeta(doc, 'location', e.target.value)}
+                          />
+                        </div>
                       </div>
 
                       {/* Notes */}

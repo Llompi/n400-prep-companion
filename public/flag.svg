@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="20" fill="#1e293b"/>
+  <g transform="translate(20, 25)">
+    <!-- Simplified US Flag -->
+    <rect x="0" y="0" width="60" height="40" fill="#ffffff"/>
+    <!-- Red stripes -->
+    <rect x="0" y="0" width="60" height="3" fill="#b91c1c"/>
+    <rect x="0" y="6" width="60" height="3" fill="#b91c1c"/>
+    <rect x="0" y="12" width="60" height="3" fill="#b91c1c"/>
+    <rect x="0" y="18" width="60" height="3" fill="#b91c1c"/>
+    <rect x="0" y="24" width="60" height="3" fill="#b91c1c"/>
+    <rect x="0" y="30" width="60" height="3" fill="#b91c1c"/>
+    <rect x="0" y="36" width="60" height="4" fill="#b91c1c"/>
+    <!-- Blue canton -->
+    <rect x="0" y="0" width="24" height="21" fill="#1e40af"/>
+    <!-- Stars (simplified) -->
+    <g fill="#ffffff">
+      <circle cx="4" cy="3" r="1.2"/>
+      <circle cx="8" cy="3" r="1.2"/>
+      <circle cx="12" cy="3" r="1.2"/>
+      <circle cx="16" cy="3" r="1.2"/>
+      <circle cx="20" cy="3" r="1.2"/>
+      <circle cx="6" cy="6" r="1.2"/>
+      <circle cx="10" cy="6" r="1.2"/>
+      <circle cx="14" cy="6" r="1.2"/>
+      <circle cx="18" cy="6" r="1.2"/>
+      <circle cx="4" cy="9" r="1.2"/>
+      <circle cx="8" cy="9" r="1.2"/>
+      <circle cx="12" cy="9" r="1.2"/>
+      <circle cx="16" cy="9" r="1.2"/>
+      <circle cx="20" cy="9" r="1.2"/>
+      <circle cx="6" cy="12" r="1.2"/>
+      <circle cx="10" cy="12" r="1.2"/>
+      <circle cx="14" cy="12" r="1.2"/>
+      <circle cx="18" cy="12" r="1.2"/>
+      <circle cx="4" cy="15" r="1.2"/>
+      <circle cx="8" cy="15" r="1.2"/>
+      <circle cx="12" cy="15" r="1.2"/>
+      <circle cx="16" cy="15" r="1.2"/>
+      <circle cx="20" cy="15" r="1.2"/>
+      <circle cx="6" cy="18" r="1.2"/>
+      <circle cx="10" cy="18" r="1.2"/>
+      <circle cx="14" cy="18" r="1.2"/>
+      <circle cx="18" cy="18" r="1.2"/>
+    </g>
+    <!-- Flagpole -->
+    <rect x="-3" y="-5" width="2" height="55" fill="#94a3b8"/>
+    <circle cx="-2" cy="-5" r="2" fill="#94a3b8"/>
+  </g>
+</svg>

@@ -19,7 +19,7 @@ const EVENT_TYPE_COLORS: Record<EventType | 'other', string> = {
   employment: 'text-primary-600 dark:text-primary-300 bg-primary-100 dark:bg-primary-900/50',
   legal: 'text-red-600 dark:text-red-300 bg-red-100 dark:bg-red-900/50',
   tax: 'text-amber-600 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/50',
-  other: 'text-neutral-600 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-700',
+  other: 'text-neutral-600 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-800',
 };
 
 const FILTER_OPTIONS = ['all', 'address', 'employment', 'trip', 'tax', 'legal'] as const;
@@ -102,7 +102,7 @@ export function TimelineManager({
             className={`px-4 py-1.5 rounded-full text-xs font-bold capitalize transition border ${
               filter === f
                 ? 'bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-800 border-neutral-800 dark:border-neutral-200'
-                : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border-neutral-200 dark:border-neutral-600 hover:border-neutral-400 dark:hover:border-neutral-500'
+                : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500'
             }`}
           >
             {f}
@@ -135,7 +135,7 @@ export function TimelineManager({
         {/* Events */}
         {filteredEvents.map((ev) => (
           <div key={ev.id} className="relative group">
-            <div className="absolute -left-[37px] top-5 w-4 h-4 rounded-full bg-white dark:bg-neutral-800 border-2 border-neutral-300 dark:border-neutral-600 z-10 group-hover:scale-110 transition" />
+            <div className="absolute -left-[37px] top-5 w-4 h-4 rounded-full bg-white dark:bg-neutral-800 border-2 border-neutral-300 dark:border-neutral-700 z-10 group-hover:scale-110 transition" />
             <div className="bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 p-5 shadow-sm hover:shadow-md dark:hover:shadow-neutral-900/50 transition">
               <div className="flex justify-between items-start">
                 <div>
@@ -170,7 +170,7 @@ export function TimelineManager({
                 {ev.evidenceRef || ev.evidenceLink ? (
                   <>
                     {ev.evidenceRef && (
-                      <span className="flex items-center gap-2 text-xs text-neutral-600 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-700 px-2 py-1 rounded">
+                      <span className="flex items-center gap-2 text-xs text-neutral-600 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
                         <Icon name="folder" size={12} className="text-amber-500 dark:text-amber-400" />{' '}
                         {ev.evidenceRef}
                       </span>
@@ -209,7 +209,7 @@ export function TimelineManager({
               <input
                 type="date"
                 required
-                className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 value={newEvent.date}
                 onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
               />
@@ -220,7 +220,7 @@ export function TimelineManager({
               </label>
               <input
                 type="date"
-                className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 value={newEvent.endDate}
                 onChange={(e) => setNewEvent({ ...newEvent, endDate: e.target.value })}
               />
@@ -231,7 +231,7 @@ export function TimelineManager({
               Category
             </label>
             <select
-              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
               value={newEvent.type}
               onChange={(e) => setNewEvent({ ...newEvent, type: e.target.value as EventType })}
             >
@@ -251,7 +251,7 @@ export function TimelineManager({
               type="text"
               required
               placeholder="e.g. Moved to Seattle"
-              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
               value={newEvent.title}
               onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
             />
@@ -261,7 +261,7 @@ export function TimelineManager({
               Description
             </label>
             <textarea
-              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
               rows={3}
               placeholder="Add details about this event..."
               value={newEvent.desc}
@@ -275,7 +275,7 @@ export function TimelineManager({
             <input
               type="url"
               placeholder="https://drive.google.com/..."
-              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
               value={newEvent.evidenceLink}
               onChange={(e) => setNewEvent({ ...newEvent, evidenceLink: e.target.value })}
             />

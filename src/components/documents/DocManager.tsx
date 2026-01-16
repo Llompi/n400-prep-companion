@@ -140,7 +140,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                   onClick={() => toggleExpand(doc.id)}
                   className={`
                     bg-white dark:bg-neutral-800 rounded-xl p-4 cursor-pointer
-                    border border-transparent hover:border-neutral-200 dark:hover:border-neutral-600
+                    border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700
                     transition-all duration-200
                     ${isExp ? 'ring-2 ring-primary-100 dark:ring-primary-900 border-primary-200 dark:border-primary-800' : ''}
                     ${isChild ? 'bg-neutral-50/50 dark:bg-neutral-800/50' : ''}
@@ -217,7 +217,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                           </label>
                           <input
                             type="date"
-                            className="w-full text-sm bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                            className="w-full text-sm bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                             value={doc.meta?.expiry || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'expiry', e.target.value)}
@@ -230,7 +230,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                           <input
                             type="text"
                             placeholder="e.g. DMV, IRS"
-                            className="w-full text-sm bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                            className="w-full text-sm bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                             value={doc.meta?.issuer || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'issuer', e.target.value)}
@@ -243,7 +243,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                           <input
                             type="text"
                             placeholder="Where is this document stored?"
-                            className="w-full text-sm bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                            className="w-full text-sm bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                             value={doc.meta?.location || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'location', e.target.value)}
@@ -307,7 +307,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
             <input
               type="text"
               placeholder="e.g. Birth Certificate"
-              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl p-3 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 rounded-xl p-3 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
               value={newDocName}
               onChange={(e) => setNewDocName(e.target.value)}
               autoFocus
@@ -318,7 +318,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
               type="checkbox"
               checked={newDocRequired}
               onChange={(e) => setNewDocRequired(e.target.checked)}
-              className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-primary-600 focus:ring-primary-500"
+              className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-700 text-primary-600 focus:ring-primary-500"
             />
             <span className="text-sm text-neutral-600 dark:text-neutral-300">Mark as required</span>
           </label>
@@ -367,7 +367,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
             <input
               type="text"
               placeholder="e.g. 2024, Copy 1"
-              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl p-3 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 rounded-xl p-3 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
               value={newDocName}
               onChange={(e) => setNewDocName(e.target.value)}
               autoFocus
@@ -378,7 +378,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
               type="checkbox"
               checked={newDocRequired}
               onChange={(e) => setNewDocRequired(e.target.checked)}
-              className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-primary-600 focus:ring-primary-500"
+              className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-700 text-primary-600 focus:ring-primary-500"
             />
             <span className="text-sm text-neutral-600 dark:text-neutral-300">Mark as required</span>
           </label>

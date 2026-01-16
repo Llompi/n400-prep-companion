@@ -8,8 +8,8 @@ interface NavigationProps {
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
-      <div className="flex items-center gap-1 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-xl px-3 py-2 rounded-full shadow-lg shadow-neutral-900/10 dark:shadow-black/20 border border-neutral-200/50 dark:border-neutral-700/50">
+    <nav className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-full sm:w-auto px-4 sm:px-0">
+      <div className="flex items-center gap-0.5 sm:gap-1 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-xl px-2 sm:px-3 py-2 rounded-full shadow-lg shadow-neutral-900/10 dark:shadow-black/20 border border-neutral-200/50 dark:border-neutral-700/50 mx-auto w-fit max-w-full">
         <NavButton
           id="dashboard"
           icon="layout-dashboard"

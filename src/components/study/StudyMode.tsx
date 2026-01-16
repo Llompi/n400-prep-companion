@@ -92,7 +92,7 @@ export function StudyMode({
         <div className="flex justify-between items-center bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm p-3 rounded-full shadow-sm border border-neutral-100 dark:border-neutral-700">
           <h2 className="text-lg font-serif pl-4 text-neutral-700 dark:text-neutral-200">Flashcards</h2>
           <div className="flex items-center gap-3 pr-2">
-            <label className="text-xs text-neutral-600 dark:text-neutral-300 font-bold flex items-center gap-2 cursor-pointer bg-neutral-100 dark:bg-neutral-700 px-3 py-1.5 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-600 transition">
+            <label className="text-xs text-neutral-600 dark:text-neutral-300 font-bold flex items-center gap-2 cursor-pointer bg-neutral-100 dark:bg-neutral-800 px-3 py-1.5 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-700 transition">
               <input
                 type="checkbox"
                 checked={!showMastered}
@@ -159,7 +159,7 @@ export function StudyMode({
 
             {/* BACK */}
             <div
-              className="absolute w-full h-full bg-neutral-800 dark:bg-neutral-700 rounded-2xl shadow-xl flex flex-col items-center justify-center p-8 text-center border-2 border-neutral-700 dark:border-neutral-600"
+              className="absolute w-full h-full bg-neutral-800 dark:bg-neutral-800 rounded-2xl shadow-xl flex flex-col items-center justify-center p-8 text-center border-2 border-neutral-700 dark:border-neutral-700"
               style={{
                 backfaceVisibility: 'hidden',
                 transform: 'rotateY(180deg)',

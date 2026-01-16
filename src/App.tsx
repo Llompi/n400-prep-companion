@@ -67,10 +67,10 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-800 dark:border-slate-200 mx-auto mb-4" />
-          <p className="text-slate-600 dark:text-slate-400 font-sans">Loading your data...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neutral-900 dark:border-white mx-auto mb-4" />
+          <p className="text-neutral-700 dark:text-neutral-300 font-sans">Loading your data...</p>
         </div>
       </div>
     );
@@ -78,12 +78,12 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900">
         <div className="text-center max-w-md p-6">
           <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-800 px-4 py-2 rounded-lg font-medium hover:bg-slate-700 dark:hover:bg-slate-300 transition"
+            className="bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 py-2 rounded-lg font-medium hover:bg-neutral-800 dark:hover:bg-neutral-100 transition"
           >
             Retry
           </button>
@@ -93,8 +93,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen pb-28 bg-slate-50 dark:bg-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-blue-900 dark:selection:text-blue-100">
-      <main className="max-w-4xl mx-auto p-6 pt-8">
+    <div className="min-h-screen pb-32 bg-neutral-100 dark:bg-neutral-900 font-sans selection:bg-primary-light selection:text-neutral-900 dark:selection:bg-primary dark:selection:text-white">
+      <main className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {activeTab === 'dashboard' && (
           <Dashboard
             events={events}

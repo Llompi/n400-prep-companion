@@ -48,12 +48,12 @@ export function Dashboard({
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Welcome Header */}
-      <div className="relative bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-800/50 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-sm overflow-hidden">
+      <div className="relative bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-800/50 rounded-2xl p-6 sm:p-8 border border-neutral-200 dark:border-neutral-700 shadow-sm overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary-100 dark:bg-primary-900/30 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-red-100 dark:bg-red-900/30 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-70 translate-y-1/2 -translate-x-1/2" />
 
         <div className="relative z-10">
-          <h2 className="text-3xl font-serif font-medium text-neutral-800 dark:text-neutral-100 mb-1">
+          <h2 className="text-2xl sm:text-3xl font-serif font-medium text-neutral-800 dark:text-neutral-100 mb-1">
             Welcome, {settings.name}
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 font-sans text-sm mb-6">
@@ -61,14 +61,14 @@ export function Dashboard({
           </p>
 
           {daysUntil !== null ? (
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
               <div className="flex flex-col">
-                <span className="text-5xl font-serif text-neutral-800 dark:text-neutral-100">{daysUntil}</span>
+                <span className="text-4xl sm:text-5xl font-serif text-neutral-800 dark:text-neutral-100">{daysUntil}</span>
                 <span className="text-xs text-neutral-500 dark:text-neutral-400 font-bold uppercase tracking-wider">
                   Days Left
                 </span>
               </div>
-              <div className="h-12 w-px bg-neutral-300 dark:bg-neutral-600" />
+              <div className="hidden sm:block h-12 w-px bg-neutral-300 dark:bg-neutral-600" />
               <div>
                 <div className="font-serif text-lg text-neutral-700 dark:text-neutral-200">
                   {new Date(settings.interviewDate!).toLocaleDateString(undefined, {

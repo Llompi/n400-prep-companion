@@ -90,7 +90,7 @@ export function Settings({
           </label>
           <input
             type="text"
-            className="w-full bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary"
             value={settings.name}
             onChange={(e) => onSettingsChange({ ...settings, name: e.target.value })}
           />
@@ -101,7 +101,7 @@ export function Settings({
           </label>
           <input
             type="date"
-            className="w-full bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary"
             value={settings.interviewDate || ''}
             onChange={(e) =>
               onSettingsChange({ ...settings, interviewDate: e.target.value })
@@ -114,7 +114,7 @@ export function Settings({
           </label>
           <input
             type="date"
-            className="w-full bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary"
             value={settings.arrivalDate || ''}
             onChange={(e) =>
               onSettingsChange({ ...settings, arrivalDate: e.target.value })
@@ -127,7 +127,7 @@ export function Settings({
           </label>
           <input
             type="date"
-            className="w-full bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg px-3 py-2.5 text-sm text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary"
             value={settings.greenCardDate || ''}
             onChange={(e) =>
               onSettingsChange({ ...settings, greenCardDate: e.target.value })
@@ -145,7 +145,7 @@ export function Settings({
         <div className="grid grid-cols-2 gap-4">
           <button
             onClick={onExport}
-            className="flex flex-col items-center justify-center p-4 bg-neutral-100 dark:bg-neutral-700 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition"
+            className="flex flex-col items-center justify-center p-4 bg-neutral-100 dark:bg-neutral-800 rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-700 transition"
           >
             <Icon name="download" className="mb-2 text-neutral-500 dark:text-neutral-300" />
             <span className="text-xs font-bold text-neutral-600 dark:text-neutral-200">Backup All</span>

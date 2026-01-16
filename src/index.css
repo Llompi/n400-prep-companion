@@ -9,10 +9,38 @@
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
+    /* Prevent keyboard zoom on iOS by preventing viewport changes */
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
   }
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Enable text selection only where needed */
+  input, textarea, [contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  /* Prevent zoom on input focus - 16px is the minimum to prevent zoom */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
+  /* Improve input field appearance on iOS */
+  input:disabled, textarea:disabled {
+    opacity: 0.5;
+    -webkit-text-fill-color: inherit;
   }
 }
 

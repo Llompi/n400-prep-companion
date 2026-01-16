@@ -29,7 +29,7 @@ export function IntegratedNote({
             e.stopPropagation();
             setIsOpen(true);
           }}
-          className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors uppercase tracking-wider"
+          className="flex items-center gap-1.5 text-[10px] font-bold text-neutral-500 dark:text-neutral-400 hover:text-primary dark:hover:text-primary transition-colors uppercase tracking-wider"
         >
           <Icon name="message-square" size={12} />
           {label}
@@ -38,7 +38,7 @@ export function IntegratedNote({
       {(isOpen || noteContent) && (
         <div className="relative group">
           <textarea
-            className="w-full bg-amber-50/70 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-md p-2 text-xs text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-amber-400 dark:focus:border-amber-600 focus:ring-1 focus:ring-amber-200 dark:focus:ring-amber-800 transition-all resize-none font-serif leading-relaxed"
+            className="w-full bg-amber-50/70 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-md p-2 text-xs text-neutral-700 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-amber-400 dark:focus:border-amber-600 focus:ring-1 focus:ring-amber-200 dark:focus:ring-amber-800 transition-all resize-none font-serif leading-relaxed"
             rows={isOpen || noteContent.length > 50 ? 3 : 1}
             placeholder="Type your notes here..."
             value={noteContent}
@@ -55,7 +55,7 @@ export function IntegratedNote({
                   handleSave('');
                   setIsOpen(false);
                 }}
-                className="text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400"
+                className="text-neutral-400 dark:text-neutral-500 hover:text-red-500 dark:hover:text-red-400"
                 aria-label="Clear note"
               >
                 <Icon name="x" size={12} />

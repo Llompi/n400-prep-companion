@@ -15,10 +15,10 @@ interface DocManagerProps {
 const STATUS_ORDER: DocumentStatus[] = ['missing', 'found', 'copied', 'uploaded', 'packed'];
 
 const STATUS_CONFIG: Record<DocumentStatus, { bg: string; text: string; icon: 'circle' | 'check-circle' }> = {
-  missing: { bg: 'bg-slate-100 dark:bg-slate-700', text: 'text-slate-500 dark:text-slate-400', icon: 'circle' },
+  missing: { bg: 'bg-neutral-100 dark:bg-neutral-700', text: 'text-neutral-500 dark:text-neutral-400', icon: 'circle' },
   found: { bg: 'bg-amber-50 dark:bg-amber-900/30', text: 'text-amber-600 dark:text-amber-400', icon: 'circle' },
   copied: { bg: 'bg-purple-50 dark:bg-purple-900/30', text: 'text-purple-600 dark:text-purple-400', icon: 'circle' },
-  uploaded: { bg: 'bg-blue-50 dark:bg-blue-900/30', text: 'text-blue-600 dark:text-blue-400', icon: 'circle' },
+  uploaded: { bg: 'bg-primary-50 dark:bg-primary-900/30', text: 'text-primary-600 dark:text-primary-400', icon: 'circle' },
   packed: { bg: 'bg-green-50 dark:bg-green-900/30', text: 'text-green-600 dark:text-green-400', icon: 'check-circle' },
 };
 
@@ -101,10 +101,10 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
     <div className="space-y-6 max-w-2xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-serif text-slate-800 dark:text-slate-100">Documents</h2>
+        <h2 className="text-2xl font-serif text-neutral-800 dark:text-neutral-100">Documents</h2>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-full transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-sm text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-full transition-colors"
         >
           <Icon name="plus" size={16} />
           <span className="font-medium">Add</span>
@@ -114,12 +114,12 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
       {/* Document List */}
       <div className="space-y-2">
         {organizedDocs.length === 0 ? (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-12 text-center border border-slate-100 dark:border-slate-700">
-            <Icon name="folder" size={48} className="mx-auto text-slate-200 dark:text-slate-600 mb-4" />
-            <p className="text-slate-500 dark:text-slate-400">No documents yet</p>
+          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-12 text-center border border-neutral-100 dark:border-neutral-700">
+            <Icon name="folder" size={48} className="mx-auto text-neutral-200 dark:text-neutral-600 mb-4" />
+            <p className="text-neutral-500 dark:text-neutral-400">No documents yet</p>
             <button
               onClick={() => setShowAddModal(true)}
-              className="mt-4 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+              className="mt-4 text-sm text-primary-600 dark:text-primary-400 hover:underline"
             >
               Add your first document
             </button>
@@ -139,11 +139,11 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                 <div
                   onClick={() => toggleExpand(doc.id)}
                   className={`
-                    bg-white dark:bg-slate-800 rounded-xl p-4 cursor-pointer
-                    border border-transparent hover:border-slate-200 dark:hover:border-slate-600
+                    bg-white dark:bg-neutral-800 rounded-xl p-4 cursor-pointer
+                    border border-transparent hover:border-neutral-200 dark:hover:border-neutral-600
                     transition-all duration-200
-                    ${isExp ? 'ring-2 ring-blue-100 dark:ring-blue-900 border-blue-200 dark:border-blue-800' : ''}
-                    ${isChild ? 'bg-slate-50/50 dark:bg-slate-800/50' : ''}
+                    ${isExp ? 'ring-2 ring-primary-100 dark:ring-primary-900 border-primary-200 dark:border-primary-800' : ''}
+                    ${isChild ? 'bg-neutral-50/50 dark:bg-neutral-800/50' : ''}
                   `}
                 >
                   <div className="flex items-center gap-4">
@@ -153,11 +153,11 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                         <Icon
                           name={isExp ? 'chevron-down' : 'chevron-up'}
                           size={16}
-                          className="text-slate-300 dark:text-slate-600"
+                          className="text-neutral-300 dark:text-neutral-600"
                         />
                       )}
                       {isChild && (
-                        <div className="w-2 h-2 rounded-full bg-slate-200 dark:bg-slate-600 ml-1.5" />
+                        <div className="w-2 h-2 rounded-full bg-neutral-200 dark:bg-neutral-600 ml-1.5" />
                       )}
                     </div>
 
@@ -167,7 +167,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                         <h3 className={`font-medium truncate ${
                           doc.status === 'packed'
                             ? 'text-green-600 dark:text-green-400'
-                            : 'text-slate-800 dark:text-slate-100'
+                            : 'text-neutral-800 dark:text-neutral-100'
                         }`}>
                           {doc.name}
                         </h3>
@@ -177,7 +177,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                           </span>
                         )}
                         {doc.isCustom && (
-                          <span className="text-[10px] font-semibold bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded">
+                          <span className="text-[10px] font-semibold bg-neutral-100 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 px-1.5 py-0.5 rounded">
                             CUSTOM
                           </span>
                         )}
@@ -197,7 +197,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                     {doc.isCustom && (
                       <button
                         onClick={(e) => handleRemoveDocument(doc.id, e)}
-                        className="p-1.5 text-slate-300 dark:text-slate-600 hover:text-red-500 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="p-1.5 text-neutral-300 dark:text-neutral-600 hover:text-red-500 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <Icon name="trash-2" size={16} />
                       </button>
@@ -208,42 +208,42 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                 {/* Expanded Details */}
                 {isExp && (
                   <div className="mt-2 ml-9 mr-2 animate-fade-in">
-                    <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 space-y-3 border border-slate-100 dark:border-slate-700">
+                    <div className="bg-neutral-50 dark:bg-neutral-800/50 rounded-xl p-4 space-y-3 border border-neutral-100 dark:border-neutral-700">
                       {/* Meta Fields - Stack on mobile */}
                       <div className="space-y-3">
                         <div>
-                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1">
+                          <label className="block text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wide mb-1">
                             Expiration
                           </label>
                           <input
                             type="date"
-                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                            className="w-full text-sm bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                             value={doc.meta?.expiry || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'expiry', e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1">
+                          <label className="block text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wide mb-1">
                             Issuer
                           </label>
                           <input
                             type="text"
                             placeholder="e.g. DMV, IRS"
-                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                            className="w-full text-sm bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                             value={doc.meta?.issuer || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'issuer', e.target.value)}
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-1">
+                          <label className="block text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wide mb-1">
                             Location
                           </label>
                           <input
                             type="text"
                             placeholder="Where is this document stored?"
-                            className="w-full text-sm bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                            className="w-full text-sm bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg px-3 py-2.5 text-neutral-700 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
                             value={doc.meta?.location || ''}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => updateMeta(doc, 'location', e.target.value)}
@@ -260,14 +260,14 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                       />
 
                       {/* Actions */}
-                      <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-700">
+                      <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-700">
                         {!isChild && (
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               setShowAddSubModal(doc.id);
                             }}
-                            className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1.5 font-medium"
+                            className="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center gap-1.5 font-medium"
                           >
                             <Icon name="plus" size={14} />
                             Add sub-item
@@ -275,7 +275,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                         )}
                         <button
                           onClick={(e) => resetStatus(doc, e)}
-                          className="text-xs text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 ml-auto"
+                          className="text-xs text-neutral-400 dark:text-neutral-500 hover:text-red-500 dark:hover:text-red-400 ml-auto"
                         >
                           Reset status
                         </button>
@@ -301,13 +301,13 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5">
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-1.5">
               Document name
             </label>
             <input
               type="text"
               placeholder="e.g. Birth Certificate"
-              className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl p-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl p-3 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
               value={newDocName}
               onChange={(e) => setNewDocName(e.target.value)}
               autoFocus
@@ -318,9 +318,9 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
               type="checkbox"
               checked={newDocRequired}
               onChange={(e) => setNewDocRequired(e.target.checked)}
-              className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
+              className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-primary-600 focus:ring-primary-500"
             />
-            <span className="text-sm text-slate-600 dark:text-slate-300">Mark as required</span>
+            <span className="text-sm text-neutral-600 dark:text-neutral-300">Mark as required</span>
           </label>
           <div className="flex justify-end gap-3 pt-3">
             <button
@@ -329,14 +329,14 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                 setNewDocName('');
                 setNewDocRequired(false);
               }}
-              className="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              className="px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
             >
               Cancel
             </button>
             <button
               onClick={() => handleAddDocument()}
               disabled={!newDocName.trim()}
-              className="px-5 py-2 text-sm bg-slate-800 dark:bg-slate-100 hover:bg-slate-700 dark:hover:bg-white disabled:bg-slate-200 dark:disabled:bg-slate-700 text-white dark:text-slate-800 disabled:text-slate-400 dark:disabled:text-slate-500 rounded-lg font-medium transition-colors"
+              className="px-5 py-2 text-sm bg-neutral-800 dark:bg-neutral-100 hover:bg-neutral-700 dark:hover:bg-white disabled:bg-neutral-200 dark:disabled:bg-neutral-700 text-white dark:text-neutral-800 disabled:text-neutral-400 dark:disabled:text-neutral-500 rounded-lg font-medium transition-colors"
             >
               Add
             </button>
@@ -355,19 +355,19 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
         title="Add Sub-item"
       >
         <div className="space-y-4">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            Adding to <span className="font-medium text-slate-700 dark:text-slate-200">
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            Adding to <span className="font-medium text-neutral-700 dark:text-neutral-200">
               {docs.find(d => d.id === showAddSubModal)?.name}
             </span>
           </p>
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5">
+            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-1.5">
               Name
             </label>
             <input
               type="text"
               placeholder="e.g. 2024, Copy 1"
-              className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl p-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl p-3 text-sm text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
               value={newDocName}
               onChange={(e) => setNewDocName(e.target.value)}
               autoFocus
@@ -378,9 +378,9 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
               type="checkbox"
               checked={newDocRequired}
               onChange={(e) => setNewDocRequired(e.target.checked)}
-              className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
+              className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-primary-600 focus:ring-primary-500"
             />
-            <span className="text-sm text-slate-600 dark:text-slate-300">Mark as required</span>
+            <span className="text-sm text-neutral-600 dark:text-neutral-300">Mark as required</span>
           </label>
           <div className="flex justify-end gap-3 pt-3">
             <button
@@ -389,14 +389,14 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                 setNewDocName('');
                 setNewDocRequired(false);
               }}
-              className="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              className="px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200"
             >
               Cancel
             </button>
             <button
               onClick={() => handleAddDocument(showAddSubModal!)}
               disabled={!newDocName.trim()}
-              className="px-5 py-2 text-sm bg-slate-800 dark:bg-slate-100 hover:bg-slate-700 dark:hover:bg-white disabled:bg-slate-200 dark:disabled:bg-slate-700 text-white dark:text-slate-800 disabled:text-slate-400 dark:disabled:text-slate-500 rounded-lg font-medium transition-colors"
+              className="px-5 py-2 text-sm bg-neutral-800 dark:bg-neutral-100 hover:bg-neutral-700 dark:hover:bg-white disabled:bg-neutral-200 dark:disabled:bg-neutral-700 text-white dark:text-neutral-800 disabled:text-neutral-400 dark:disabled:text-neutral-500 rounded-lg font-medium transition-colors"
             >
               Add
             </button>

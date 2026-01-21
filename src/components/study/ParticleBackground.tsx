@@ -14,7 +14,7 @@ export function ParticleBackground() {
     let particles: Particle[] = [];
     const particleCount = 40;
     const connectionDistance = 100;
-    let mouse = { x: null as number | null, y: null as number | null };
+    const mouse = { x: null as number | null, y: null as number | null };
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;

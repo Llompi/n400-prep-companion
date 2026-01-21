@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Header } from './components/layout/Header';
+import { useState, useEffect } from 'react';
 import { Navigation } from './components/layout/Navigation';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { TimelineManager } from './components/timeline/TimelineManager';
@@ -25,12 +24,22 @@ function App() {
     addEvent,
     deleteEvent,
     updateDocument,
+    setAllDocuments,
     setAllQuestions,
     toggleMastery,
     updateNote,
     updateSettings,
     resetAllData,
   } = useStorage();
+
+  // Apply dark mode on initial load
+  useEffect(() => {
+    if (settings.darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [settings.darkMode]);
 
   const handleExport = async () => {
     try {
@@ -58,10 +67,10 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-800 mx-auto mb-4" />
-          <p className="text-slate-500 font-sans">Loading your data...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-800 dark:border-slate-200 mx-auto mb-4" />
+          <p className="text-slate-600 dark:text-slate-400 font-sans">Loading your data...</p>
         </div>
       </div>
     );
@@ -69,12 +78,12 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
         <div className="text-center max-w-md p-6">
-          <p className="text-red-500 mb-4">{error}</p>
+          <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-slate-800 text-white px-4 py-2 rounded-lg"
+            className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-800 px-4 py-2 rounded-lg font-medium hover:bg-slate-700 dark:hover:bg-slate-300 transition"
           >
             Retry
           </button>
@@ -84,10 +93,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen pb-24 md:pb-0 bg-[#f8fafc] font-sans selection:bg-blue-100 selection:text-blue-900">
-      <Header settings={settings} />
-
-      <main className="max-w-4xl mx-auto p-6">
+    <div className="min-h-screen pb-28 bg-slate-50 dark:bg-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-blue-900 dark:selection:text-blue-100">
+      <main className="max-w-4xl mx-auto p-6 pt-8">
         {activeTab === 'dashboard' && (
           <Dashboard
             events={events}
@@ -125,6 +132,7 @@ function App() {
             docs={docs}
             notes={notes}
             onUpdateDocument={updateDocument}
+            onSetAllDocuments={setAllDocuments}
             onNoteChange={updateNote}
           />
         )}

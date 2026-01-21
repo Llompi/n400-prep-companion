@@ -22,6 +22,7 @@ function App() {
     isLoading,
     error,
     addEvent,
+    updateEvent,
     deleteEvent,
     updateDocument,
     setAllDocuments,
@@ -110,11 +111,14 @@ function App() {
         {activeTab === 'timeline' && (
           <TimelineManager
             events={events}
+            docs={docs}
             settings={settings}
             notes={notes}
             onAddEvent={addEvent}
+            onUpdateEvent={updateEvent}
             onDeleteEvent={deleteEvent}
             onNoteChange={updateNote}
+            onUpdateSettings={updateSettings}
           />
         )}
         {activeTab === 'study' && (
@@ -130,9 +134,11 @@ function App() {
         {activeTab === 'docs' && (
           <DocManager
             docs={docs}
+            events={events}
             notes={notes}
             onUpdateDocument={updateDocument}
             onSetAllDocuments={setAllDocuments}
+            onUpdateEvent={updateEvent}
             onNoteChange={updateNote}
           />
         )}

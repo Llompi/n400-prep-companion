@@ -2,13 +2,15 @@ import { useState, useMemo } from 'react';
 import { Icon } from '../ui/Icon';
 import { IntegratedNote } from '../ui/IntegratedNote';
 import { Modal } from '../ui/Modal';
-import type { Document, DocumentStatus, NotesStore } from '../../types';
+import type { Document, DocumentStatus, NotesStore, TimelineEvent } from '../../types';
 
 interface DocManagerProps {
   docs: Document[];
+  events: TimelineEvent[];
   notes: NotesStore;
   onUpdateDocument: (doc: Document) => void;
   onSetAllDocuments: (docs: Document[]) => void;
+  onUpdateEvent: (event: TimelineEvent) => void;
   onNoteChange: (id: string, content: string) => void;
 }
 
@@ -22,13 +24,35 @@ const STATUS_CONFIG: Record<DocumentStatus, { bg: string; text: string; icon: 'c
   packed: { bg: 'bg-green-50 dark:bg-green-900/30', text: 'text-green-600 dark:text-green-400', icon: 'check-circle' },
 };
 
-export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, onNoteChange }: DocManagerProps) {
+export function DocManager({ docs, events, notes, onUpdateDocument, onSetAllDocuments, onUpdateEvent, onNoteChange }: DocManagerProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showAddSubModal, setShowAddSubModal] = useState<string | null>(null);
   const [newDocName, setNewDocName] = useState('');
   const [newDocRequired, setNewDocRequired] = useState(false);
   const [editingDoc, setEditingDoc] = useState<Document | null>(null);
+  const [linkingDocId, setLinkingDocId] = useState<string | null>(null);
+
+  // Get events linked to a specific document
+  const getLinkedEvents = (docId: string) => {
+    return events.filter(ev => ev.linkedDocIds?.includes(docId));
+  };
+
+  // Toggle event link for a document
+  const toggleEventLink = (docId: string, eventId: string) => {
+    const event = events.find(e => e.id === eventId);
+    if (!event) return;
+
+    const currentLinks = event.linkedDocIds || [];
+    const newLinks = currentLinks.includes(docId)
+      ? currentLinks.filter(id => id !== docId)
+      : [...currentLinks, docId];
+
+    onUpdateEvent({
+      ...event,
+      linkedDocIds: newLinks.length > 0 ? newLinks : undefined,
+    });
+  };
 
   // Organize docs: parents first, then their children immediately after
   const organizedDocs = useMemo(() => {
@@ -281,6 +305,51 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                         label="Add notes"
                       />
 
+                      {/* Linked Timeline Events */}
+                      {!isChild && (
+                        <div className="pt-3 border-t border-slate-100 dark:border-slate-700">
+                          <div className="flex items-center justify-between mb-2">
+                            <label className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
+                              Linked Timeline Events
+                            </label>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setLinkingDocId(doc.id);
+                              }}
+                              className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1"
+                            >
+                              <Icon name="pencil" size={12} />
+                              Edit
+                            </button>
+                          </div>
+                          {(() => {
+                            const linkedEvts = getLinkedEvents(doc.id);
+                            if (linkedEvts.length === 0) {
+                              return (
+                                <p className="text-xs text-slate-400 dark:text-slate-500 italic">
+                                  No timeline events linked
+                                </p>
+                              );
+                            }
+                            return (
+                              <div className="flex flex-wrap gap-1.5">
+                                {linkedEvts.map(ev => (
+                                  <span
+                                    key={ev.id}
+                                    className="flex items-center gap-1.5 text-xs bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 px-2 py-1 rounded"
+                                  >
+                                    <Icon name="calendar-days" size={12} />
+                                    {ev.title}
+                                    <span className="text-purple-400 dark:text-purple-500">({ev.date})</span>
+                                  </span>
+                                ))}
+                              </div>
+                            );
+                          })()}
+                        </div>
+                      )}
+
                       {/* Actions */}
                       <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-700">
                         {!isChild && (
@@ -522,6 +591,75 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                 className="px-5 py-2 text-sm bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 dark:disabled:bg-slate-700 text-white disabled:text-slate-400 dark:disabled:text-slate-500 rounded-lg font-medium transition-colors"
               >
                 Save Changes
+              </button>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Link Timeline Events Modal */}
+      <Modal
+        isOpen={!!linkingDocId}
+        onClose={() => setLinkingDocId(null)}
+        title="Link Timeline Events"
+      >
+        {linkingDocId && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Select timeline events to link to{' '}
+              <span className="font-medium text-slate-700 dark:text-slate-200">
+                {docs.find(d => d.id === linkingDocId)?.name}
+              </span>
+            </p>
+            {events.length > 0 ? (
+              <div className="max-h-64 overflow-y-auto space-y-1">
+                {events
+                  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                  .map(ev => {
+                    const isLinked = ev.linkedDocIds?.includes(linkingDocId) || false;
+                    return (
+                      <label
+                        key={ev.id}
+                        className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
+                          isLinked
+                            ? 'bg-purple-100 dark:bg-purple-900/50'
+                            : 'bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isLinked}
+                          onChange={() => toggleEventLink(linkingDocId, ev.id)}
+                          className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-purple-600 focus:ring-purple-500"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-sm text-slate-800 dark:text-slate-100 truncate">
+                            {ev.title}
+                          </div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">
+                            {ev.date} • <span className="capitalize">{ev.type}</span>
+                          </div>
+                        </div>
+                        <Icon
+                          name="calendar-days"
+                          size={16}
+                          className="text-slate-300 dark:text-slate-600 flex-shrink-0"
+                        />
+                      </label>
+                    );
+                  })}
+              </div>
+            ) : (
+              <p className="text-sm text-slate-400 dark:text-slate-500 italic text-center py-8">
+                No timeline events yet. Add events in the Timeline tab.
+              </p>
+            )}
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setLinkingDocId(null)}
+                className="px-5 py-2 text-sm bg-slate-800 dark:bg-slate-100 hover:bg-slate-700 dark:hover:bg-white text-white dark:text-slate-800 rounded-lg font-medium transition-colors"
+              >
+                Done
               </button>
             </div>
           </div>

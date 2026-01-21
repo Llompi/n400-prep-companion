@@ -1,5 +1,22 @@
 // Timeline Event Types
-export type EventType = 'address' | 'employment' | 'trip' | 'tax' | 'legal' | 'other';
+export type EventType = 'address' | 'employment' | 'trip' | 'tax' | 'legal' | 'other' | string;
+
+// Custom event category definition
+export interface EventCategory {
+  id: string;
+  label: string;
+  color: string; // Tailwind color class prefix (e.g., 'purple', 'green', 'blue')
+}
+
+// Default event categories
+export const DEFAULT_EVENT_CATEGORIES: EventCategory[] = [
+  { id: 'address', label: 'Address', color: 'green' },
+  { id: 'employment', label: 'Employment', color: 'blue' },
+  { id: 'trip', label: 'Travel', color: 'purple' },
+  { id: 'tax', label: 'Tax', color: 'amber' },
+  { id: 'legal', label: 'Legal', color: 'red' },
+  { id: 'other', label: 'Other', color: 'slate' },
+];
 
 export interface TimelineEvent {
   id: string;
@@ -50,6 +67,7 @@ export interface UserSettings {
   filingDate?: string;
   interviewDate?: string;
   darkMode?: boolean;
+  eventCategories?: EventCategory[]; // Custom event categories
 }
 
 // Notes store - keyed by entity ID

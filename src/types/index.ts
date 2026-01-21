@@ -57,6 +57,7 @@ export interface Document {
   meta: DocumentMeta;
   parentId?: string; // For sub-documents/grouping
   isCustom?: boolean; // User-added documents
+  submittedToUSCIS?: boolean; // Scanned and submitted electronically to USCIS
 }
 
 // User Settings
@@ -68,6 +69,8 @@ export interface UserSettings {
   interviewDate?: string;
   darkMode?: boolean;
   eventCategories?: EventCategory[]; // Custom event categories
+  alienNumber?: string; // USCIS Alien Registration Number (A-Number)
+  alienNumberBlurred?: boolean; // Whether A-Number is blurred in UI
 }
 
 // Notes store - keyed by entity ID

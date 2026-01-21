@@ -31,6 +31,7 @@ import {
   MoreHorizontal,
   Moon,
   Sun,
+  Pencil,
   type LucideIcon,
 } from 'lucide-react';
 import type { IconName } from '../../types';
@@ -68,6 +69,7 @@ const ICON_MAP: Record<IconName, LucideIcon> = {
   'moon': Moon,
   'sun': Sun,
   'folder-plus': FolderPlus,
+  'pencil': Pencil,
 };
 
 interface IconProps {

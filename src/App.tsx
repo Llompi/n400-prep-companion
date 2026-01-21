@@ -110,6 +110,7 @@ function App() {
         {activeTab === 'timeline' && (
           <TimelineManager
             events={events}
+            docs={docs}
             settings={settings}
             notes={notes}
             onAddEvent={addEvent}

@@ -28,6 +28,7 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
   const [showAddSubModal, setShowAddSubModal] = useState<string | null>(null);
   const [newDocName, setNewDocName] = useState('');
   const [newDocRequired, setNewDocRequired] = useState(false);
+  const [editingDoc, setEditingDoc] = useState<Document | null>(null);
 
   // Organize docs: parents first, then their children immediately after
   const organizedDocs = useMemo(() => {
@@ -90,6 +91,18 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
       const updatedDocs = docs.filter(d => d.id !== docId && d.parentId !== docId);
       onSetAllDocuments(updatedDocs);
       if (expanded === docId) setExpanded(null);
+    }
+  };
+
+  const handleEditDocument = (doc: Document, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setEditingDoc({ ...doc });
+  };
+
+  const handleSaveEdit = () => {
+    if (editingDoc && editingDoc.name.trim()) {
+      onUpdateDocument(editingDoc);
+      setEditingDoc(null);
     }
   };
 
@@ -191,6 +204,15 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
                     >
                       <Icon name={config.icon} size={14} />
                       <span className="capitalize">{doc.status}</span>
+                    </button>
+
+                    {/* Edit button */}
+                    <button
+                      onClick={(e) => handleEditDocument(doc, e)}
+                      className="p-1.5 text-slate-300 dark:text-slate-600 hover:text-blue-500 dark:hover:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Edit document"
+                    >
+                      <Icon name="pencil" size={16} />
                     </button>
 
                     {/* Delete for custom docs */}
@@ -402,6 +424,108 @@ export function DocManager({ docs, notes, onUpdateDocument, onSetAllDocuments, o
             </button>
           </div>
         </div>
+      </Modal>
+
+      {/* Edit Document Modal */}
+      <Modal
+        isOpen={!!editingDoc}
+        onClose={() => setEditingDoc(null)}
+        title="Edit Document"
+      >
+        {editingDoc && (
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5">
+                Document name
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Birth Certificate"
+                className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl p-3 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={editingDoc.name}
+                onChange={(e) => setEditingDoc({ ...editingDoc, name: e.target.value })}
+                autoFocus
+              />
+            </div>
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={editingDoc.required}
+                onChange={(e) => setEditingDoc({ ...editingDoc, required: e.target.checked })}
+                className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
+              />
+              <span className="text-sm text-slate-600 dark:text-slate-300">Mark as required</span>
+            </label>
+
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-700">
+              <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+                Document Details
+              </h4>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+                    Expiration Date
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={editingDoc.meta?.expiry || ''}
+                    onChange={(e) => setEditingDoc({
+                      ...editingDoc,
+                      meta: { ...editingDoc.meta, expiry: e.target.value }
+                    })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+                    Issuer
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. DMV, IRS, USCIS"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={editingDoc.meta?.issuer || ''}
+                    onChange={(e) => setEditingDoc({
+                      ...editingDoc,
+                      meta: { ...editingDoc.meta, issuer: e.target.value }
+                    })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+                    Storage Location
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Where is this document stored?"
+                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={editingDoc.meta?.location || ''}
+                    onChange={(e) => setEditingDoc({
+                      ...editingDoc,
+                      meta: { ...editingDoc.meta, location: e.target.value }
+                    })}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 pt-3">
+              <button
+                onClick={() => setEditingDoc(null)}
+                className="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveEdit}
+                disabled={!editingDoc.name.trim()}
+                className="px-5 py-2 text-sm bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 dark:disabled:bg-slate-700 text-white disabled:text-slate-400 dark:disabled:text-slate-500 rounded-lg font-medium transition-colors"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   );

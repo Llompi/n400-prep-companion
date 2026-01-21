@@ -8,8 +8,10 @@ export interface TimelineEvent {
   type: EventType;
   title: string;
   desc?: string;
-  evidenceRef?: string;
+  linkedDocIds?: string[];  // Array of document IDs linked to this event
   evidenceLink?: string;
+  /** @deprecated Use linkedDocIds instead. Kept for migration compatibility. */
+  evidenceRef?: string;
 }
 
 // Civics Questions
@@ -104,4 +106,5 @@ export type IconName =
   | 'more-horizontal'
   | 'moon'
   | 'sun'
-  | 'folder-plus';
+  | 'folder-plus'
+  | 'pencil';

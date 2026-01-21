@@ -2,10 +2,11 @@ import { useState, useMemo, type FormEvent } from 'react';
 import { Icon } from '../ui/Icon';
 import { Modal } from '../ui/Modal';
 import { IntegratedNote } from '../ui/IntegratedNote';
-import type { TimelineEvent, UserSettings, NotesStore, EventType } from '../../types';
+import type { TimelineEvent, UserSettings, NotesStore, EventType, Document } from '../../types';
 
 interface TimelineManagerProps {
   events: TimelineEvent[];
+  docs: Document[];
   settings: UserSettings;
   notes: NotesStore;
   onAddEvent: (event: TimelineEvent) => void;
@@ -30,7 +31,7 @@ interface NewEventForm {
   type: EventType;
   title: string;
   desc: string;
-  evidenceRef: string;
+  linkedDocIds: string[];
   evidenceLink: string;
 }
 
@@ -40,12 +41,13 @@ const INITIAL_FORM: NewEventForm = {
   type: 'address',
   title: '',
   desc: '',
-  evidenceRef: '',
+  linkedDocIds: [],
   evidenceLink: '',
 };
 
 export function TimelineManager({
   events,
+  docs,
   settings,
   notes,
   onAddEvent,
@@ -67,12 +69,33 @@ export function TimelineManager({
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const event: TimelineEvent = {
-      ...newEvent,
       id: Date.now().toString(),
+      date: newEvent.date,
+      endDate: newEvent.endDate || undefined,
+      type: newEvent.type,
+      title: newEvent.title,
+      desc: newEvent.desc || undefined,
+      linkedDocIds: newEvent.linkedDocIds.length > 0 ? newEvent.linkedDocIds : undefined,
+      evidenceLink: newEvent.evidenceLink || undefined,
     };
     onAddEvent(event);
     setIsAdding(false);
     setNewEvent(INITIAL_FORM);
+  };
+
+  const toggleDocLink = (docId: string) => {
+    setNewEvent(prev => ({
+      ...prev,
+      linkedDocIds: prev.linkedDocIds.includes(docId)
+        ? prev.linkedDocIds.filter(id => id !== docId)
+        : [...prev.linkedDocIds, docId]
+    }));
+  };
+
+  // Helper to get document name by ID
+  const getDocName = (docId: string) => {
+    const doc = docs.find(d => d.id === docId);
+    return doc?.name || docId;
   };
 
   const handleDelete = (id: string) => {
@@ -167,11 +190,22 @@ export function TimelineManager({
               )}
 
               <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 flex flex-wrap gap-2">
-                {ev.evidenceRef || ev.evidenceLink ? (
+                {(ev.linkedDocIds && ev.linkedDocIds.length > 0) || ev.evidenceRef || ev.evidenceLink ? (
                   <>
-                    {ev.evidenceRef && (
+                    {/* Display linked documents */}
+                    {ev.linkedDocIds?.map(docId => (
+                      <span
+                        key={docId}
+                        className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded"
+                      >
+                        <Icon name="folder" size={12} className="text-amber-500 dark:text-amber-400" />
+                        {getDocName(docId)}
+                      </span>
+                    ))}
+                    {/* Legacy: display old evidenceRef if no linkedDocIds */}
+                    {ev.evidenceRef && (!ev.linkedDocIds || ev.linkedDocIds.length === 0) && (
                       <span className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">
-                        <Icon name="folder" size={12} className="text-amber-500 dark:text-amber-400" />{' '}
+                        <Icon name="folder" size={12} className="text-amber-500 dark:text-amber-400" />
                         {ev.evidenceRef}
                       </span>
                     )}
@@ -268,6 +302,50 @@ export function TimelineManager({
               onChange={(e) => setNewEvent({ ...newEvent, desc: e.target.value })}
             />
           </div>
+          {/* Document Picker */}
+          <div>
+            <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">
+              Link Documents
+            </label>
+            {docs.length > 0 ? (
+              <div className="max-h-40 overflow-y-auto bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-2 space-y-1">
+                {docs.filter(d => !d.parentId).map(doc => (
+                  <label
+                    key={doc.id}
+                    className={`flex items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors ${
+                      newEvent.linkedDocIds.includes(doc.id)
+                        ? 'bg-blue-100 dark:bg-blue-900/50'
+                        : 'hover:bg-slate-100 dark:hover:bg-slate-600'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={newEvent.linkedDocIds.includes(doc.id)}
+                      onChange={() => toggleDocLink(doc.id)}
+                      className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
+                    />
+                    <Icon name="folder" size={14} className="text-amber-500 dark:text-amber-400 flex-shrink-0" />
+                    <span className="text-sm text-slate-700 dark:text-slate-200 truncate">{doc.name}</span>
+                    {doc.required && (
+                      <span className="text-[9px] font-semibold bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 px-1 py-0.5 rounded ml-auto flex-shrink-0">
+                        REQ
+                      </span>
+                    )}
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-slate-400 dark:text-slate-500 italic">
+                No documents available. Add documents in the Documents tab.
+              </p>
+            )}
+            {newEvent.linkedDocIds.length > 0 && (
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                {newEvent.linkedDocIds.length} document{newEvent.linkedDocIds.length > 1 ? 's' : ''} selected
+              </p>
+            )}
+          </div>
+
           <div>
             <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">
               Evidence Link (Cloud Storage URL)

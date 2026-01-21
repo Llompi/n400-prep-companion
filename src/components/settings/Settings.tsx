@@ -134,6 +134,23 @@ export function Settings({
             }
           />
         </div>
+        <div>
+          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">
+            Alien Registration Number (A-Number)
+          </label>
+          <input
+            type="text"
+            placeholder="A-123456789"
+            className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+            value={settings.alienNumber || ''}
+            onChange={(e) =>
+              onSettingsChange({ ...settings, alienNumber: e.target.value })
+            }
+          />
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+            Your 9-digit A-Number from your Green Card. Displayed on all pages for reference.
+          </p>
+        </div>
       </div>
 
       {/* Data Management Section */}

@@ -218,6 +218,11 @@ export function DocManager({ docs, events, notes, onUpdateDocument, onSetAllDocu
                             CUSTOM
                           </span>
                         )}
+                        {doc.submittedToUSCIS && (
+                          <span className="text-[10px] font-semibold bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded">
+                            USCIS
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -239,15 +244,14 @@ export function DocManager({ docs, events, notes, onUpdateDocument, onSetAllDocu
                       <Icon name="pencil" size={16} />
                     </button>
 
-                    {/* Delete for custom docs */}
-                    {doc.isCustom && (
-                      <button
-                        onClick={(e) => handleRemoveDocument(doc.id, e)}
-                        className="p-1.5 text-slate-300 dark:text-slate-600 hover:text-red-500 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <Icon name="trash-2" size={16} />
-                      </button>
-                    )}
+                    {/* Delete button - available for all docs */}
+                    <button
+                      onClick={(e) => handleRemoveDocument(doc.id, e)}
+                      className="p-1.5 text-slate-300 dark:text-slate-600 hover:text-red-500 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                      title="Remove document"
+                    >
+                      <Icon name="trash-2" size={16} />
+                    </button>
                   </div>
                 </div>
 
@@ -296,6 +300,30 @@ export function DocManager({ docs, events, notes, onUpdateDocument, onSetAllDocu
                           />
                         </div>
                       </div>
+
+                      {/* Submitted to USCIS checkbox */}
+                      <label
+                        className="flex items-center gap-3 cursor-pointer p-3 bg-white dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={doc.submittedToUSCIS || false}
+                          onChange={(e) => {
+                            e.stopPropagation();
+                            onUpdateDocument({ ...doc, submittedToUSCIS: e.target.checked });
+                          }}
+                          className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
+                        />
+                        <div>
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
+                            Submitted to USCIS
+                          </span>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">
+                            Scanned and submitted electronically
+                          </p>
+                        </div>
+                      </label>
 
                       {/* Notes */}
                       <IntegratedNote

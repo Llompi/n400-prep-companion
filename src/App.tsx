@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Header } from './components/layout/Header';
 import { Navigation } from './components/layout/Navigation';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { TimelineManager } from './components/timeline/TimelineManager';
@@ -95,6 +96,7 @@ function App() {
 
   return (
     <div className="min-h-screen pb-28 bg-slate-50 dark:bg-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-blue-900 dark:selection:text-blue-100">
+      <Header settings={settings} onSettingsChange={updateSettings} />
       <main className="max-w-4xl mx-auto p-6 pt-8">
         {activeTab === 'dashboard' && (
           <Dashboard

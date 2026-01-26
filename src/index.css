@@ -45,3 +45,63 @@
     animation: fade-in 0.4s ease-out forwards;
   }
 }
+
+/* Print styles */
+@media print {
+  /* Hide non-printable elements */
+  .no-print,
+  nav,
+  header,
+  button:not(.print-include),
+  .modal-backdrop {
+    display: none !important;
+  }
+
+  /* Reset page margins */
+  @page {
+    margin: 0.5in;
+    size: letter;
+  }
+
+  /* Ensure proper background colors print */
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: white !important;
+  }
+
+  /* Timeline print view styles */
+  .print-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 9999;
+    overflow: auto;
+    padding: 0;
+  }
+
+  .print-view * {
+    color: black !important;
+    background: white !important;
+  }
+
+  .print-event-row {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .print-header {
+    page-break-after: avoid;
+  }
+}
+
+/* Screen-only print preview styles */
+@media screen {
+  .print-preview-container {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}

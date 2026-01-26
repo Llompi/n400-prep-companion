@@ -1,7 +1,8 @@
-import { useState, useMemo, type FormEvent } from 'react';
+import { useState, useMemo, useRef, type FormEvent } from 'react';
 import { Icon } from '../ui/Icon';
 import { Modal } from '../ui/Modal';
 import { IntegratedNote } from '../ui/IntegratedNote';
+import { TimelinePrintView } from './TimelinePrintView';
 import type { TimelineEvent, UserSettings, NotesStore, EventType, Document, EventCategory } from '../../types';
 import { DEFAULT_EVENT_CATEGORIES } from '../../types';
 
@@ -77,6 +78,12 @@ export function TimelineManager({
   const [newCategory, setNewCategory] = useState({ label: '', color: 'blue' });
   const [editingCategory, setEditingCategory] = useState<EventCategory | null>(null);
 
+  // Print mode state
+  const [showPrintModal, setShowPrintModal] = useState(false);
+  const [printFromDate, setPrintFromDate] = useState('');
+  const [printToDate, setPrintToDate] = useState('');
+  const printRef = useRef<HTMLDivElement>(null);
+
   // Get event categories from settings or use defaults
   const eventCategories = settings.eventCategories || DEFAULT_EVENT_CATEGORIES;
 
@@ -92,6 +99,31 @@ export function TimelineManager({
 
   const filteredEvents =
     filter === 'all' ? sortedEvents : sortedEvents.filter((e) => e.type === filter);
+
+  // Get date range for events (for print date picker hints)
+  const eventDateRange = useMemo(() => {
+    if (events.length === 0) return { min: '', max: '' };
+    const dates = events.map(e => e.date).sort();
+    return { min: dates[0], max: dates[dates.length - 1] };
+  }, [events]);
+
+  // Handle print
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const openPrintModal = () => {
+    // Set default date range to all events
+    setPrintFromDate(eventDateRange.min);
+    setPrintToDate(eventDateRange.max);
+    setShowPrintModal(true);
+  };
+
+  const closePrintModal = () => {
+    setShowPrintModal(false);
+    setPrintFromDate('');
+    setPrintToDate('');
+  };
 
   // Get category by ID
   const getCategory = (typeId: string): EventCategory => {
@@ -194,9 +226,16 @@ export function TimelineManager({
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 no-print">
         <h2 className="text-2xl font-serif text-slate-800 dark:text-slate-100">Timeline</h2>
         <div className="flex gap-2">
+          <button
+            onClick={openPrintModal}
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 px-3 py-2 rounded-full flex items-center gap-2 text-sm border border-slate-200 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 transition"
+            title="Print timeline"
+          >
+            <Icon name="printer" size={16} /> Print
+          </button>
           <button
             onClick={() => setShowCategoryManager(true)}
             className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 px-3 py-2 rounded-full flex items-center gap-2 text-sm border border-slate-200 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 transition"
@@ -213,7 +252,7 @@ export function TimelineManager({
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide">
+      <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide no-print">
         {filterOptions.map((f) => {
           const cat = f === 'all' ? null : getCategory(f);
           return (
@@ -233,7 +272,7 @@ export function TimelineManager({
       </div>
 
       {/* Timeline */}
-      <div className="relative pl-8 border-l border-slate-200 dark:border-slate-700 space-y-8">
+      <div className="relative pl-8 border-l border-slate-200 dark:border-slate-700 space-y-8 no-print">
         {/* Future Node - Interview */}
         <div className="relative">
           <div className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-blue-500 dark:bg-blue-400 ring-4 ring-blue-100 dark:ring-blue-900/50" />
@@ -561,6 +600,121 @@ export function TimelineManager({
           </div>
         </div>
       </Modal>
+
+      {/* Print Modal */}
+      <Modal isOpen={showPrintModal} onClose={closePrintModal} title="Print Timeline">
+        <div className="space-y-4">
+          {/* Date Range Selection */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">
+                <Icon name="calendar" size={12} className="inline mr-1" />
+                From Date
+              </label>
+              <input
+                type="date"
+                className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={printFromDate}
+                onChange={(e) => setPrintFromDate(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">
+                <Icon name="calendar" size={12} className="inline mr-1" />
+                To Date
+              </label>
+              <input
+                type="date"
+                className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={printToDate}
+                onChange={(e) => setPrintToDate(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Quick date range buttons */}
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => {
+                setPrintFromDate(eventDateRange.min);
+                setPrintToDate(eventDateRange.max);
+              }}
+              className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 transition"
+            >
+              All Events
+            </button>
+            <button
+              onClick={() => {
+                const now = new Date();
+                const fiveYearsAgo = new Date(now.getFullYear() - 5, now.getMonth(), now.getDate());
+                setPrintFromDate(fiveYearsAgo.toISOString().split('T')[0]);
+                setPrintToDate(now.toISOString().split('T')[0]);
+              }}
+              className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 transition"
+            >
+              Last 5 Years
+            </button>
+            <button
+              onClick={() => {
+                const now = new Date();
+                const threeYearsAgo = new Date(now.getFullYear() - 3, now.getMonth(), now.getDate());
+                setPrintFromDate(threeYearsAgo.toISOString().split('T')[0]);
+                setPrintToDate(now.toISOString().split('T')[0]);
+              }}
+              className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 transition"
+            >
+              Last 3 Years
+            </button>
+            <button
+              onClick={() => {
+                setPrintFromDate('');
+                setPrintToDate('');
+              }}
+              className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full hover:bg-slate-200 dark:hover:bg-slate-600 transition"
+            >
+              Clear Dates
+            </button>
+          </div>
+
+          {/* Preview */}
+          <div className="border border-slate-200 dark:border-slate-600 rounded-lg overflow-hidden">
+            <div className="bg-slate-100 dark:bg-slate-700 px-3 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">
+              Print Preview
+            </div>
+            <div className="print-preview-container bg-white dark:bg-slate-800" ref={printRef}>
+              <TimelinePrintView
+                events={events}
+                docs={docs}
+                settings={settings}
+                fromDate={printFromDate}
+                toDate={printToDate}
+              />
+            </div>
+          </div>
+
+          {/* Print Button */}
+          <button
+            onClick={handlePrint}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium transition flex items-center justify-center gap-2"
+          >
+            <Icon name="printer" size={18} />
+            Print Timeline
+          </button>
+        </div>
+      </Modal>
+
+      {/* Hidden print view for actual printing */}
+      {showPrintModal && (
+        <div className="hidden print:block">
+          <TimelinePrintView
+            events={events}
+            docs={docs}
+            settings={settings}
+            fromDate={printFromDate}
+            toDate={printToDate}
+          />
+        </div>
+      )}
     </div>
   );
 }

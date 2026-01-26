@@ -32,6 +32,8 @@ import {
   Moon,
   Sun,
   Pencil,
+  Printer,
+  Calendar,
   type LucideIcon,
 } from 'lucide-react';
 import type { IconName } from '../../types';
@@ -70,6 +72,8 @@ const ICON_MAP: Record<IconName, LucideIcon> = {
   'sun': Sun,
   'folder-plus': FolderPlus,
   'pencil': Pencil,
+  'printer': Printer,
+  'calendar': Calendar,
 };
 
 interface IconProps {

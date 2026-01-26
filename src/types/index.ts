@@ -128,4 +128,6 @@ export type IconName =
   | 'moon'
   | 'sun'
   | 'folder-plus'
-  | 'pencil';
+  | 'pencil'
+  | 'printer'
+  | 'calendar';
